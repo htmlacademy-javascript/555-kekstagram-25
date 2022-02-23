@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Tatyana Novoseltseva](https://up.htmlacademy.ru/javascript/25/user/555).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Байдаров](https://htmlacademy.ru/profile/4er).
 
 ---
 
