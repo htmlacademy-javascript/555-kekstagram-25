@@ -23,11 +23,7 @@ const commentChecked = 'Проверка длины строки';
 const maxLength = 140;
 
 function getCheckCommentLength(str, lengthLimit) {
-  if (str.length < lengthLimit) {
-    return true;
-  } else {
-    return false;
-  }
+  return str.length <= lengthLimit;
 }
 
 getCheckCommentLength(commentChecked, maxLength);
