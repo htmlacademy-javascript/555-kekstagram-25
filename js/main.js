@@ -145,4 +145,4 @@ const createPhoto = () => ({
 });
 
 const photoDescription = Array.from({length: MAX_PHOTO_COUNT}, createPhoto);
-photoDescription;
+window.console.log(photoDescription);
