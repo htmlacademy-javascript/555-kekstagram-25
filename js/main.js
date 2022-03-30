@@ -129,6 +129,13 @@ function createRandomIdFromRangeGenerator (min, max) {
 
 const generatePhotoId = createRandomIdFromRangeGenerator(MIN_PHOTO_COUNT, MAX_PHOTO_COUNT);
 
+const photoComments = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandom(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES)
+});
+
 const createPhoto = () => ({
   id: generatePhotoId(),
   url: `photos/${generatePhotoId()}.jpg`,
@@ -137,11 +144,5 @@ const createPhoto = () => ({
   comments: Array.from({length: getRandom(1,2)}, photoComments)
 });
 
-const photoComments = () => ({
-  id: generateCommentId(),
-  avatar: `img/avatar-${getRandom(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`,
-  message: getRandomArrayElement(MESSAGES),
-  name: getRandomArrayElement(NAMES)
-});
-
 const photoDescription = Array.from({length: MAX_PHOTO_COUNT}, createPhoto);
+photoDescription;
