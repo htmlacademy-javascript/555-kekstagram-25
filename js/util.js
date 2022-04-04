@@ -3,8 +3,6 @@ const getCheckCommentLength = function (str, lengthLimit) {
   return str.length <= lengthLimit;
 };
 
-export {getCheckCommentLength};
-
 // Функция получения случайного числа
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
@@ -15,8 +13,6 @@ const getRandomNumber = (min, max) => {
     return 'Invalid Data Input';
   }
 };
-
-export {getRandomNumber};
 
 //Функция-генератор для получения уникальных идентификаторов.
 
@@ -30,8 +26,6 @@ function createIdGenerator () {
 }
 
 const generateId = createIdGenerator();
-
-export {generateId};
 
 //Функция-генератор для получения случайных идентификаторов из указанного диапазона, и так, чтобы они не повторялись, пока не будут перебраны все числа из этого промежутка.
 
@@ -50,4 +44,4 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-export {createRandomIdFromRangeGenerator};
+export {getCheckCommentLength, getRandomNumber, generateId, createRandomIdFromRangeGenerator};
