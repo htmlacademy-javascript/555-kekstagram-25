@@ -58,12 +58,13 @@ const createPhoto = () => {
   const unicPhotoId = generatePhotoId();
   return {
     id: unicPhotoId,
-    url: `photos/${unicPhotoId}.jpg`,
+    url: `photos/${ unicPhotoId }.jpg`,
     description: getRandomArrayElement(DESCRIPSIONS),
     likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-    comments: Array.from({ length: getRandomNumber(1, 2) }, photoComments)
+    comments: Array.from({ length: getRandomNumber(1, 10) }, photoComments)
   };
 };
 
-const photoDescription = Array.from({length: MAX_PHOTO_COUNT}, createPhoto);
-window.console.log(photoDescription);
+const photoDescription = () => Array.from({ length: MAX_PHOTO_COUNT }, createPhoto); //формирование массива объектов
+
+export {createPhoto, photoDescription};
