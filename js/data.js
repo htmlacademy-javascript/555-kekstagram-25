@@ -65,5 +65,6 @@ const createPhoto = () => {
   };
 };
 
-const photoDescription = Array.from({length: MAX_PHOTO_COUNT}, createPhoto);
-window.console.log(photoDescription);
+const photoDescription = Array.from({length: MAX_PHOTO_COUNT}, createPhoto); //формирование массива объектов
+
+export {createPhoto, photoDescription};
