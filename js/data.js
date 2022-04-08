@@ -26,7 +26,7 @@ const NAMES = [
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.В конце концов это просто непрофессионально.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
@@ -49,7 +49,7 @@ const generatePhotoId = createRandomIdFromRangeGenerator(MIN_PHOTO_COUNT, MAX_PH
 
 const photoComments = () => ({
   id: generateId(),
-  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`,
+  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });

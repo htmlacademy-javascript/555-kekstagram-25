@@ -44,4 +44,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-export {getCheckCommentLength, getRandomNumber, generateId, createRandomIdFromRangeGenerator};
+const isEscapeKey = (evt) => evt.keyCode === 27;
+
+export {getCheckCommentLength, getRandomNumber, generateId, createRandomIdFromRangeGenerator, isEscapeKey};
