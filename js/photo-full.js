@@ -15,12 +15,30 @@ const commentsLoader = document.querySelector('.comments-loader'); //кнопк�
 const socialCommentCount = document.querySelector('.social__comment-count'); //счетчик комментариев
 const fullPhotoClose = document.querySelector('.big-picture__cancel'); //кнопка для выхода из полноэкранного просмотра изображения
 
+//закрытие окна при нажатии клавиши esc
+const onEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFullPhoto();
+  }
+};
+
+//закрытие окна при нажатии на кнопку «крестик»
+fullPhotoClose.addEventListener('click', () => {
+  closeFullPhoto();
+});
+
 const socialCommentFragment = document.createDocumentFragment(); //DOM-объект для вставки сгенерированных DOM-элементов с комментариями
+
+//удаление комментариев из массива при закрытии окна
+const removeComments = () => {
+  socialComments.innerHTML = '';
+};
 
 //заполнение разметки комментария
 const fillComments = (items) => {
   items.forEach(({avatar, name, message}) => { //превращение параметров объектов комментариев в переменные
-    const commentElement = socialComment; //поиск нужного блока отдельного комментария для заполнения
+    const commentElement = socialComment.cloneNode(true); //поиск нужного блока отдельного комментария для заполнения
     commentElement.querySelector('.social__picture').src = avatar; //адрес аватарки комментатора
     commentElement.querySelector('.social__picture').alt = name; //имя комментатора в качестве альта для аватарки
     commentElement.querySelector('.social__text').textContent = message; //текст комментария
@@ -32,7 +50,8 @@ const fillComments = (items) => {
 };
 
 //отрисовка окна просмотра полноразмерного изображения
-const fillFullPhoto = (({url, likes, comments, description}) => { //превращение параметров объектов описания фото в переменные
+const fillFullPhoto = (({ url, likes, comments, description }) => { //превращение параметров объектов описания фото в переменные
+  removeComments();
   img.src = url; //адрес изображения
   likesСount.textContent = likes; //количество лайков
   commentsCount.textContent = comments.length; //количество комментариев
@@ -40,19 +59,6 @@ const fillFullPhoto = (({url, likes, comments, description}) => { //превра
   fillComments(comments); //комментариии
   openFullPhoto();
 });
-
-//удаление комментариев из массива, когда окно закрывают
-const removeComments = () => {
-  socialComments.removeChild(socialComments.lastChild);
-};
-
-//закрытие окна при нажатии клавиши esc
-const onEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeFullPhoto();
-  }
-};
 
 //функция показа окна просмотра
 function openFullPhoto() {
@@ -70,14 +76,8 @@ function closeFullPhoto() {
   socialCommentCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   body.classList.remove('.modal-open');
-  removeComments();
 
   document.removeEventListener('keydown', onEscKeydown);
 }
-
-//закрытие окна при нажатии на кнопку «крестик»
-fullPhotoClose.addEventListener('click', () => {
-  closeFullPhoto();
-});
 
 export {fillFullPhoto};

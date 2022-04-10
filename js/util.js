@@ -44,6 +44,7 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const isEscapeKey = (evt) => evt.keyCode === 27;
+//проверка нажатой клавиши Esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {getCheckCommentLength, getRandomNumber, generateId, createRandomIdFromRangeGenerator, isEscapeKey};
