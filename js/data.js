@@ -6,6 +6,8 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MIN_AVATAR_COUNT = 1;
 const MAX_AVATAR_COUNT = 6;
+const MIN_COMMENT = 1;
+const MAX_COMMENT = 25;
 
 const NAMES = [
   'Воланд',
@@ -26,7 +28,7 @@ const NAMES = [
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.В конце концов это просто непрофессионально.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
@@ -49,7 +51,7 @@ const generatePhotoId = createRandomIdFromRangeGenerator(MIN_PHOTO_COUNT, MAX_PH
 
 const photoComments = () => ({
   id: generateId(),
-  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`,
+  avatar: `img/avatar-${getRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
@@ -61,7 +63,7 @@ const createPhoto = () => {
     url: `photos/${ unicPhotoId }.jpg`,
     description: getRandomArrayElement(DESCRIPSIONS),
     likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-    comments: Array.from({ length: getRandomNumber(1, 10) }, photoComments)
+    comments: Array.from({ length: getRandomNumber(MIN_COMMENT, MAX_COMMENT) }, photoComments)
   };
 };
 
