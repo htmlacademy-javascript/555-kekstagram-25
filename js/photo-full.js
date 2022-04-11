@@ -1,6 +1,10 @@
 import './data.js';
 import {isEscapeKey} from './util.js';
 
+//индексы для создания массива из 5 комментариев
+const MIN_INDEX_OF_COMMENTS = 0;
+const MAX_INDEX_OF_COMMENTS = 5;
+
 const body = document.querySelector('body');
 
 const fullPhoto = document.querySelector('.big-picture'); //окно полноразмерного показа изображения, которое каждый раз нужно заполнять данными о конкретной фотографии
@@ -46,25 +50,53 @@ const fillComments = (items) => {
   });
 
   socialComments.appendChild(socialCommentFragment); //вставка готовых комментариев в список комментариев
-  return socialComments; //возврат из функции блока с заполненными комментариями
+};
+
+let totalCommentsArray = []; //пустой массив для записи всех комментариев
+
+//функция показа 5 комментариев по ТЗ 4.6
+const displayFiveComments = () => {
+  const allComments = totalCommentsArray.length; //общее количество комментариев под фото
+  const commentsFive = totalCommentsArray.slice(MIN_INDEX_OF_COMMENTS, MAX_INDEX_OF_COMMENTS); //копия части исходного массива — 5 комментариев, которые будут показаны
+  fillComments(commentsFive); //отрисовка 5 комментариев
+  commentsLoader.classList.remove('hidden'); //показ кнопки загрузки дополнительных комментариев
+  socialCommentCount.firstChild.textContent = `${MAX_INDEX_OF_COMMENTS} из `; //изменение подписи счетчика комментариев
+  if (allComments <= MAX_INDEX_OF_COMMENTS) {
+    commentsLoader.classList.add('hidden'); //скрытие кнопки загрузки дополнительных комментариев
+    socialCommentCount.firstChild.textContent = `${allComments} из `; //изменение подписи счетчика комментариев
+  }
+};
+
+//функция отображения ещё 5 комментариев ТЗ 4.7
+const displayMoreComments = () => {
+  let moreComments = socialComments.children.length + MAX_INDEX_OF_COMMENTS; //сколько всего нужно отобразить комментариев при очередной итерации
+  const commentsPart = totalCommentsArray.slice(socialComments.children.length, moreComments); //следующие комментарии для отображения
+  fillComments(commentsPart); //отрисовка следующих 5 комментариев
+  if (moreComments >= totalCommentsArray.length) { //проверка, чтобы не отображалось комментариев больше, чем есть
+    moreComments = totalCommentsArray.length; //максимальное количество комментариев для отображения под текущим изображением
+    commentsLoader.classList.add('hidden'); //скрытие кнопки загрузки дополнительных комментариев
+    socialCommentCount.firstChild.textContent = `${moreComments} из `; //изменение подписи счетчика комментариев
+  }
+  socialCommentCount.firstChild.textContent = `${moreComments} из `; //изменение подписи счетчика комментариев
 };
 
 //отрисовка окна просмотра полноразмерного изображения
 const fillFullPhoto = (({ url, likes, comments, description }) => { //превращение параметров объектов описания фото в переменные
   removeComments();
+  totalCommentsArray = comments;
   img.src = url; //адрес изображения
   likesСount.textContent = likes; //количество лайков
   commentsCount.textContent = comments.length; //количество комментариев
   socialCaption.textContent = description; //описание фото
-  fillComments(comments); //комментариии
+  displayFiveComments(); //отрисовка 5 комментариев
   openFullPhoto();
 });
 
 //функция показа окна просмотра
 function openFullPhoto() {
   fullPhoto.classList.remove('hidden');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  socialCommentCount.classList.remove('hidden');
+  commentsLoader.addEventListener('click', displayMoreComments);
   body.classList.add('.modal-open');
 
   document.addEventListener('keydown', onEscKeydown);
@@ -73,8 +105,8 @@ function openFullPhoto() {
 //функция скрытия окна просмотра
 function closeFullPhoto() {
   fullPhoto.classList.add('hidden');
-  socialCommentCount.classList.remove('hidden');
-  commentsLoader.classList.remove('hidden');
+  socialCommentCount.classList.add('hidden');
+  commentsLoader.removeEventListener('click', displayMoreComments);
   body.classList.remove('.modal-open');
 
   document.removeEventListener('keydown', onEscKeydown);

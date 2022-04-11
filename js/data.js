@@ -6,6 +6,8 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MIN_AVATAR_COUNT = 1;
 const MAX_AVATAR_COUNT = 6;
+const MIN_COMMENT = 1;
+const MAX_COMMENT = 25;
 
 const NAMES = [
   'Воланд',
@@ -61,7 +63,7 @@ const createPhoto = () => {
     url: `photos/${ unicPhotoId }.jpg`,
     description: getRandomArrayElement(DESCRIPSIONS),
     likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-    comments: Array.from({ length: getRandomNumber(1, 10) }, photoComments)
+    comments: Array.from({ length: getRandomNumber(MIN_COMMENT, MAX_COMMENT) }, photoComments)
   };
 };
 
