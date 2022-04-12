@@ -1,7 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {getCheckCommentLength} from './util.js';
 import {getArrayFromString} from './util.js';
-import { findDuplicates } from './util.js';
+import {findDuplicates} from './util.js';
 
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
@@ -17,8 +17,7 @@ const regularValue = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$|(^$)/; //регуляр
 const imgUploadForm = document.querySelector('.img-upload__form');
 
 //валидация полей формы
-
-const pristine = window.Pristine(imgUploadForm, {
+const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__text',
   errorClass: 'img-upload__text--invalid',
   successClass: 'img-upload__text--valid',
@@ -30,9 +29,7 @@ const pristine = window.Pristine(imgUploadForm, {
 //валидация хэш-тегов
 
 //проверка длины массива, что она меньше или равна 5, тогда возвращает true, иначе false
-function validateArrayLength() {
-  return getArrayFromString(textHashtags).length <= MAX_HASHTAG_COUNT;
-}
+const validateArrayLength = (hashtags) => getArrayFromString(hashtags).length <= MAX_HASHTAG_COUNT;
 
 pristine.addValidator(
   imgUploadForm.querySelector('.text__hashtags'),
@@ -41,11 +38,7 @@ pristine.addValidator(
 );
 
 //проверка соответствия каждого элемента массива регулярному выражению, если хотя бы один элемент не соответствует — возвращает false
-
-function validateRegularValue () {
-  const testHashtagArray = (hashtag) => regularValue.test(hashtag);
-  return getArrayFromString(textHashtags).every(testHashtagArray);
-}
+const validateRegularValue = (hashtags) => getArrayFromString(hashtags).every((hashtag) => regularValue.test(hashtag));
 
 pristine.addValidator(
   imgUploadForm.querySelector('.text__hashtags'),
@@ -53,10 +46,8 @@ pristine.addValidator(
   'Хэш-тег начинается с символа # и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д. Минимальная длина хэш-тега 1 символ, максимальная – 20 символов.'
 );
 
-//- 3-я проверяет на уникальность (тут я думаю, что проще все методом .size — он вернет количество уникальных элементов массива, сравнить с длинной массива), возвращает true или false.
-function validateDuplicates () {
-  return findDuplicates(getArrayFromString(textHashtags));
-}
+//проверка на уникальность каждого хэш-тега
+const validateDuplicates = (hashtags) => findDuplicates(getArrayFromString(hashtags));
 
 pristine.addValidator(
   imgUploadForm.querySelector('.text__hashtags'),
@@ -65,9 +56,7 @@ pristine.addValidator(
 );
 
 //валидация комментария
-function validateTextDescription() {
-  return getCheckCommentLength(textDescription.value, MAX_COMMENT_LENGTH);
-}
+const validateTextDescription = (description) => getCheckCommentLength(description, MAX_COMMENT_LENGTH);
 
 pristine.addValidator(
   imgUploadForm.querySelector('.text__description'),
