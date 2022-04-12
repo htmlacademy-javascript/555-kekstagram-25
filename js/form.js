@@ -84,7 +84,7 @@ const resetForm = () => {
 };
 
 //функция открытия окна добавления изображения
-const openUserModal = () => {
+function openUserModal () {
   uploadFile.addEventListener('change', () => {
     imgUploadOverlay.classList.remove('hidden'); //показывается форма редактирования изображения ТЗ 1.2
     body.classList.add('modal-open'); //показывается форма редактирования изображения ТЗ 1.2
@@ -92,10 +92,10 @@ const openUserModal = () => {
     textHashtags.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода хэш-тега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
     textDescription.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
   });
-};
+}
 
 //функция закрытия окна добавления изображения
-const closeUserModal = () => {
+function closeUserModal () {
   imgUploadOverlay.classList.add('hidden'); //закрытие формы редактирования изображения ТЗ 1.3
   body.classList.remove('modal-open'); //закрытие формы редактирования изображения ТЗ 1.3
   resetForm(); //сбрасывание значения поля выбора файла
@@ -103,7 +103,7 @@ const closeUserModal = () => {
   document.removeEventListener('keydown', onEscKeydown); //удаление обработчика для закрытия окна клавишей esc
   textHashtags.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
   textDescription.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
-};
+}
 
 uploadFile.addEventListener('click', openUserModal);//открытие окна при клике кнопки 'загрузить'
 
