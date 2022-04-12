@@ -32,7 +32,7 @@ const pristine = window.Pristine(imgUploadForm, {
 //проверка длины массива, что она меньше или равна 5, тогда возвращает true, иначе false
 function validateArrayLength() {
   return getArrayFromString(textHashtags).length <= MAX_HASHTAG_COUNT;
-};
+}
 
 pristine.addValidator(
   imgUploadForm.querySelector('.text__hashtags'),
