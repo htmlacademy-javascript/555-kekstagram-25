@@ -1,7 +1,9 @@
-import {isEscapeKey} from './util.js';
-import {getCheckCommentLength} from './util.js';
-import {getArrayFromString} from './util.js';
-import {findDuplicates} from './util.js';
+import { isEscapeKey } from './util.js';
+import { getCheckCommentLength } from './util.js';
+import { getArrayFromString } from './util.js';
+import { findDuplicates } from './util.js';
+import { imageUploadPreview } from './scale.js';
+import { resetFilter, addEffect } from './slider.js';
 
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAG_COUNT = 5;
@@ -15,6 +17,8 @@ const textDescription = document.querySelector('.text__description'); //поле
 //const imgUploadSubmit = document.querySelector('.img-upload__submit'); //кнопка для отправки данных на сервер
 const regularValue = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$|(^$)/; //регулярное выражение для хэш-тегов
 const imgUploadForm = document.querySelector('.img-upload__form');
+const effectLevel = document.querySelector('.effect-level'); //филдсет слайдера
+const effectsList = document.querySelector('.effects__list'); //список эффектов
 
 //валидация полей формы
 const pristine = new Pristine(imgUploadForm, {
@@ -86,16 +90,20 @@ const resetForm = () => {
 //функция открытия окна добавления изображения
 function openUserModal () {
   uploadFile.addEventListener('change', () => {
+    effectLevel.classList.add('hidden');
+    imageUploadPreview.style.transform = 'scale(1)'; //масштаб редактируемого изображения по умолчанию 100%
     imgUploadOverlay.classList.remove('hidden'); //показывается форма редактирования изображения ТЗ 1.2
     body.classList.add('modal-open'); //показывается форма редактирования изображения ТЗ 1.2
     document.addEventListener('keydown', onEscKeydown); //добавление обработчика для закрытия окна клавишей esc
     textHashtags.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода хэш-тега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
     textDescription.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
+    effectsList.addEventListener('click', addEffect);//добавление функции изменения эффектов на загруженном изображении
   });
 }
 
 //функция закрытия окна добавления изображения
-function closeUserModal () {
+function closeUserModal() {
+  resetFilter();
   imgUploadOverlay.classList.add('hidden'); //закрытие формы редактирования изображения ТЗ 1.3
   body.classList.remove('modal-open'); //закрытие формы редактирования изображения ТЗ 1.3
   resetForm(); //сбрасывание значения поля выбора файла
@@ -103,8 +111,11 @@ function closeUserModal () {
   document.removeEventListener('keydown', onEscKeydown); //удаление обработчика для закрытия окна клавишей esc
   textHashtags.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
   textDescription.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
+  effectsList.removeEventListener('click', addEffect);//удаление функции изменения эффектов на загруженном изображении
 }
 
 uploadFile.addEventListener('click', openUserModal);//открытие окна при клике кнопки 'загрузить'
 
 uploadCancel.addEventListener('click', closeUserModal); //закрытие окна при клике на кнопку для закрытия формы редактирования изображения
+
+export { effectLevel };

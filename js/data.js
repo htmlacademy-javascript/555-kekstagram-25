@@ -1,4 +1,4 @@
-import {getRandomNumber, generateId, createRandomIdFromRangeGenerator} from './util.js';
+import { getRandomNumber, generateId, createRandomIdFromRangeGenerator } from './util.js';
 
 const MIN_PHOTO_COUNT = 1;
 const MAX_PHOTO_COUNT = 25;
@@ -69,4 +69,4 @@ const createPhoto = () => {
 
 const photoDescription = () => Array.from({ length: MAX_PHOTO_COUNT }, createPhoto); //формирование массива объектов
 
-export {createPhoto, photoDescription};
+export { createPhoto, photoDescription };
