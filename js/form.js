@@ -2,7 +2,7 @@ import { isEscapeKey } from './util.js';
 import { getCheckCommentLength } from './util.js';
 import { getArrayFromString } from './util.js';
 import { findDuplicates } from './util.js';
-import { imgUploadPreview } from './scale.js';
+import { imageUploadPreview } from './scale.js';
 import { resetFilter, addEffect } from './slider.js';
 
 const MAX_COMMENT_LENGTH = 140;
@@ -91,7 +91,7 @@ const resetForm = () => {
 function openUserModal () {
   uploadFile.addEventListener('change', () => {
     effectLevel.classList.add('hidden');
-    imgUploadPreview.style.transform = 'scale(1)'; //масштаб редактируемого изображения по умолчанию 100%
+    imageUploadPreview.style.transform = 'scale(1)'; //масштаб редактируемого изображения по умолчанию 100%
     imgUploadOverlay.classList.remove('hidden'); //показывается форма редактирования изображения ТЗ 1.2
     body.classList.add('modal-open'); //показывается форма редактирования изображения ТЗ 1.2
     document.addEventListener('keydown', onEscKeydown); //добавление обработчика для закрытия окна клавишей esc
