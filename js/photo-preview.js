@@ -22,4 +22,4 @@ usersPhoto.forEach(({url, likes, comments, description}) => { //превраще
   });
 });
 
-previewPhotoBlock.appendChild(previewPhotoFragment);//вставка готовых элементов с данными в нужный блок
+previewPhotoBlock.appendChild( previewPhotoFragment );//вставка готовых элементов с данными в нужный блок
