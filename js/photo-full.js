@@ -1,4 +1,3 @@
-import './data.js';
 import { isEscapeKey } from './util.js';
 
 //индексы для создания массива из 5 комментариев
@@ -112,4 +111,4 @@ function closeFullPhoto() {
   document.removeEventListener('keydown', onEscKeydown);
 }
 
-export { fillFullPhoto };
+export { fillFullPhoto, body };

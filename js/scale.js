@@ -1,11 +1,11 @@
+const STEP = 25;
+const MIN_VALUE = 25;
+const MAX_VALUE = 100;
+
 const buttonControlSmaller = document.querySelector('.scale__control--smaller'); //кнопка уменьшения масштаба
 const buttonControlBigger = document.querySelector('.scale__control--bigger'); //кнопка увеличения масштаба
 const inputControlValue = document.querySelector('.scale__control--value'); //поле со значением масштаба
 const imageUploadPreview = document.querySelector('div.img-upload__preview img'); //редактируемое изображение
-
-const STEP = 25;
-const MIN_VALUE = 25;
-const MAX_VALUE = 100;
 
 let currentValue = 100; //числовое выражение масштаба
 
