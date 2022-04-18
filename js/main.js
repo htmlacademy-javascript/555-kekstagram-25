@@ -6,7 +6,6 @@ import './scale.js';
 import './slider.js';
 import './upload-image.js';
 import './debounce.js';
-import './filters.js';
 import { renderPhoto, onButtonClick, photos } from './photo-preview.js';
 import { setUserFormSubmit, closeUserModal } from './form.js';
 import { getData } from './api.js';

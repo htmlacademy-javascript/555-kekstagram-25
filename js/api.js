@@ -11,7 +11,7 @@ const getData = async () => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    'https://25.javascript.pages.academy/kekstagra',
     {
       method: 'POST',
       body,
@@ -29,4 +29,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData};
+export { getData, sendData };
