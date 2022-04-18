@@ -10,7 +10,7 @@ const fullPhoto = document.querySelector('.big-picture'); //окно полно�
 const fullPhotoImg = document.querySelector('.big-picture__img'); //просмотр полноразмерного изображения
 const img = fullPhotoImg.querySelector('img'); //адрес полноразмерного изображения
 const socialCaption = document.querySelector('.social__caption'); //подпись фотографии
-const likesСount = document.querySelector('.likes-count'); //количество лайков
+const likesCount = document.querySelector('.likes-count'); //количество лайков
 const commentsCount = document.querySelector('.comments-count'); //количество комментариев
 const socialComments = document.querySelector('.social__comments'); //список комментариев
 const socialComment = document.querySelector('.social__comment'); //комментарий
@@ -84,7 +84,7 @@ const fillFullPhoto = (({ url, likes, comments, description }) => { //превр
   removeComments();
   totalCommentsArray = comments;
   img.src = url; //адрес изображения
-  likesСount.textContent = likes; //количество лайков
+  likesCount.textContent = likes; //количество лайков
   commentsCount.textContent = comments.length; //количество комментариев
   socialCaption.textContent = description; //описание фото
   displayFiveComments(); //отрисовка 5 комментариев
@@ -96,7 +96,7 @@ function openFullPhoto() {
   fullPhoto.classList.remove('hidden');
   socialCommentCount.classList.remove('hidden');
   commentsLoader.addEventListener('click', displayMoreComments);
-  body.classList.add('.modal-open');
+  body.classList.add('modal-open');
 
   document.addEventListener('keydown', onEscKeydown);
 }
@@ -106,7 +106,7 @@ function closeFullPhoto() {
   fullPhoto.classList.add('hidden');
   socialCommentCount.classList.add('hidden');
   commentsLoader.removeEventListener('click', displayMoreComments);
-  body.classList.remove('.modal-open');
+  body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onEscKeydown);
 }

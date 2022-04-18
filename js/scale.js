@@ -2,31 +2,27 @@ const STEP = 25;
 const MIN_VALUE = 25;
 const MAX_VALUE = 100;
 
-const buttonControlSmaller = document.querySelector('.scale__control--smaller'); //кнопка уменьшения масштаба
-const buttonControlBigger = document.querySelector('.scale__control--bigger'); //кнопка увеличения масштаба
 const inputControlValue = document.querySelector('.scale__control--value'); //поле со значением масштаба
 const imageUploadPreview = document.querySelector('.img-upload__preview img'); //редактируемое изображение
 
-let currentValue = 100; //числовое выражение масштаба
+//уменьшение или увеличение изображения по «клику» на кнопку «-»
+const onScaleClick = (evt) => {
+  const target = evt.target;
 
-inputControlValue.value = `${currentValue}%`; //значение масштаба в процентах
+  let currentValue = parseInt(inputControlValue.value.replace('%', ''), 10);
 
-//уменьшение изображения по «клику» на кнопку «-»
-buttonControlSmaller.addEventListener('click', () => {
-  if (currentValue !== MIN_VALUE) {
+  const isSmaller = target.classList.contains('scale__control--smaller');
+  const isBigger = target.classList.contains('scale__control--bigger');
+
+  if (currentValue !== MIN_VALUE && isSmaller) {
     currentValue -= STEP;
     imageUploadPreview.style.transform = `scale(${currentValue / 100})`;
     inputControlValue.value = `${currentValue}%`;
-  }
-});
-
-//увеличение изображения по «клику» на кнопку «+»
-buttonControlBigger.addEventListener('click', () => {
-  if (currentValue !== MAX_VALUE) {
+  } else if (currentValue !== MAX_VALUE && isBigger) {
     currentValue += STEP;
     imageUploadPreview.style.transform = `scale(${currentValue / 100})`;
     inputControlValue.value = `${currentValue}%`;
   }
-});
+};
 
-export { imageUploadPreview };
+export { imageUploadPreview, onScaleClick };

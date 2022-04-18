@@ -1,6 +1,6 @@
 import { isEscapeKey, getCheckCommentLength, getArrayFromString, findDuplicates } from './util.js';
 import { showForm } from './data-upload.js';
-import { imageUploadPreview } from './scale.js';
+import { imageUploadPreview, onScaleClick } from './scale.js';
 import { resetFilter, addEffect } from './slider.js';
 import { sendData } from './api.js';
 
@@ -18,6 +18,8 @@ const regularValue = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$|(^$)/; //регуляр
 const imgUploadForm = document.querySelector('.img-upload__form'); //форма
 const effectLevel = document.querySelector('.effect-level'); //филдсет слайдера
 const effectsList = document.querySelector('.effects__list'); //список эффектов
+const buttonControlSmaller = document.querySelector('.scale__control--smaller'); //кнопка уменьшения масштаба
+const buttonControlBigger = document.querySelector('.scale__control--bigger'); //кнопка увеличения масштаба
 
 //валидация полей формы
 const pristine = new Pristine(imgUploadForm, {
@@ -96,6 +98,8 @@ function openUserModal () {
     textHashtags.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода хэш-тега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
     textDescription.addEventListener('keydown', stopEvent); //если фокус находится в поле ввода комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
     effectsList.addEventListener('click', addEffect);//добавление функции изменения эффектов на загруженном изображении
+    buttonControlSmaller.addEventListener('click', onScaleClick);
+    buttonControlBigger.addEventListener('click', onScaleClick);
   });
 }
 
@@ -111,6 +115,8 @@ function closeUserModal() {
   textHashtags.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
   textDescription.removeEventListener('keydown', stopEvent); // удаление обработчика на запрет закрытия окна при фокусе
   effectsList.removeEventListener('click', addEffect);//удаление функции изменения эффектов на загруженном изображении
+  buttonControlSmaller.removeEventListener('click', onScaleClick);
+  buttonControlBigger.removeEventListener('click', onScaleClick);
 }
 
 uploadFile.addEventListener('click', openUserModal);//открытие окна при клике кнопки 'загрузить'
@@ -138,13 +144,11 @@ const reloadAfterSuccess = () => {
 
 //если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение, при закрытии форма редактирования изображения закрывается, все данные, введённые в форму, и контрол фильтра приходят в исходное состояние
 const reloadAfterError = () => {
-  resetForm();
-  resetFilter();
   showForm(false);
 };
 
 //отправка формы
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = () => {
   imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -154,7 +158,6 @@ const setUserFormSubmit = (onSuccess) => {
       sendData(
         () => {
           reloadAfterSuccess();
-          onSuccess();
           unblockSubmitButton();
         },
         () => {
