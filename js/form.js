@@ -90,7 +90,6 @@ const resetForm = () => {
 function openUserModal () {
   uploadFile.addEventListener('change', () => {
     effectLevel.classList.add('hidden');
-    imageUploadPreview.style.transform = 'scale(1)'; //масштаб редактируемого изображения по умолчанию 100%
     imgUploadOverlay.classList.remove('hidden'); //показывается форма редактирования изображения ТЗ 1.2
     body.classList.add('modal-open'); //показывается форма редактирования изображения ТЗ 1.2
     document.addEventListener('keydown', onEscKeydown); //добавление обработчика для закрытия окна клавишей esc
@@ -102,6 +101,7 @@ function openUserModal () {
 
 //функция закрытия окна добавления изображения
 function closeUserModal() {
+  imageUploadPreview.style.transform = 'scale(1)'; //масштаб редактируемого изображения по умолчанию 100%
   resetFilter();
   imgUploadOverlay.classList.add('hidden'); //закрытие формы редактирования изображения ТЗ 1.3
   body.classList.remove('modal-open'); //закрытие формы редактирования изображения ТЗ 1.3

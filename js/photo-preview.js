@@ -73,25 +73,28 @@ const rerenderPhotos = () => {
 };
 
 const onButtonClick = () => {
-  filterForm.addEventListener('click', (evt) => {
+  filterForm.addEventListener('click', debounce((evt) => {
     const makeDebounce = debounce(() => renderPhoto());
     const makeRandomDebounce = debounce(() => renderPhoto(10));
     rerenderPhotos();
     removeFilter();
-    if (evt.target.id === 'filter-default') {
-      evt.target.classList.add('img-filters__button--active');
-      photos.data.sort(filterDefault);
-      makeDebounce();
-    } else if (evt.target.id === 'filter-discussed') {
-      evt.target.classList.add('img-filters__button--active');
-      photos.data.sort(filterDiscussed);
-      makeDebounce();
-    } else if (evt.target.id === 'filter-random') {
-      evt.target.classList.add('img-filters__button--active');
-      photos.data.sort(getRandomNumber);
-      makeRandomDebounce();
+    switch (evt.target.id) {
+      case 'filter-default':
+        evt.target.classList.add('img-filters__button--active');
+        photos.data.sort(filterDefault);
+        makeDebounce();
+        break;
+      case 'filter-discussed':
+        evt.target.classList.add('img-filters__button--active');
+        photos.data.sort(filterDiscussed);
+        makeDebounce();
+        break;
+      case 'filter-random':
+        evt.target.classList.add('img-filters__button--active');
+        photos.data.sort(getRandomNumber);
+        makeRandomDebounce();
     }
-  });
+  }));
 };
 
 export { renderPhoto, onButtonClick, photos };
